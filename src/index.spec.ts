@@ -1,12 +1,111 @@
-// @ts-ignore see https://github.com/jest-community/jest-extended#setup
-import * as matchers from "jest-extended";
+import { createDiamond, makeRow } from ".";
 
-expect.extend(matchers);
+describe("Test of createRow", () => {
+  test("Middle line (n = 1)", () => {
+    // GIVEN
+    const dimension = 1;
+    const index = 0;
 
-test("That's a test!", () => {
-  expect(1 + 1).toEqual(2);
+    // WHEN
+    const actual = makeRow(dimension, index);
+
+    // THEN
+    const expected: string[] = ["*"];
+    expect(actual).toEqual(expected);
+  });
+
+  test("Middle line (n = 3)", () => {
+    // GIVEN
+    const dimension = 3;
+    const index = 1;
+
+    // WHEN
+    const actual = makeRow(dimension, index);
+
+    // THEN
+    const expected: string[] = ["*", "*", "*"];
+    expect(actual).toEqual(expected);
+  });
+
+  test("Line above the middle line (n = 3)", () => {
+    // GIVEN
+    const dimension = 3;
+    const index = 0;
+
+    // WHEN
+    const actual = makeRow(dimension, index);
+
+    // THEN
+    const expected: string[] = [" ", "*", " "];
+    expect(actual).toEqual(expected);
+  });
+
+  test("Line above the middle line (n = 5)", () => {
+    // GIVEN
+    const dimension = 5;
+    const index = 1;
+
+    // WHEN
+    const actual = makeRow(dimension, index);
+
+    // THEN
+    const expected: string[] = [" ", "*", "*", "*", " "];
+    expect(actual).toEqual(expected);
+  });
+
+  test("Any line (n = 5)", () => {
+    // GIVEN
+    const dimension = 5;
+    const index = 0;
+
+    // WHEN
+    const actual = makeRow(dimension, index);
+
+    // THEN
+    const expected: string[] = [" ", " ", "*", " ", " "];
+    expect(actual).toEqual(expected);
+  });
+
+  test("Any line (n = 7)", () => {
+    // GIVEN
+    const dimension = 7;
+    const index = 1;
+
+    // WHEN
+    const actual = makeRow(dimension, index);
+
+    // THEN
+    const expected: string[] = [" ", " ", "*", "*", "*", " ", " "];
+    expect(actual).toEqual(expected);
+  });
 });
 
-test("jest-extended is included", () => {
-  expect([1, 0]).toIncludeSameMembers([0, 1]);
+describe("Test of createDiamond", () => {
+  test("n = 1", () => {
+    // GIVEN
+    const dimension = 1;
+
+    // WHEN
+    const actual = createDiamond(dimension);
+
+    // THEN
+    const expected: string[][] = [["*"]];
+    expect(actual).toEqual(expected);
+  });
+
+  test("n = 3", () => {
+    // GIVEN
+    const dimension = 3;
+
+    // WHEN
+    const actual = createDiamond(dimension);
+
+    // THEN
+    const expected: string[][] = [
+      [" ", "*", " "],
+      ["*", "*", "*"],
+      [" ", "*", " "],
+    ];
+    expect(actual).toEqual(expected);
+  });
 });
